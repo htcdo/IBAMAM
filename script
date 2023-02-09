@@ -1,0 +1,21 @@
+##HELENA OLIVEIRA, 08.02.2023
+## SCRIPT PARA CONSULTA DOS DADOS PUBLICOS DE EMBARGO POR CPFS/CNPJS
+
+##INSTALANDO O PACOTE IBAMAM
+remotes::install_github("cccneto/Ibamam", force = TRUE)
+
+library(Ibamam)
+ibama <- fines_applied_Brasil <- get_dataset_ibamam(dataset = "distribuidas")
+write.csv(ibama, "C:/Users/suapasta//ibama_08022023.csv", row.names=FALSE)
+
+-------------------------------------------------------------------------------------------
+
+#AQUI VAMOS COMPARAR OS CPFS/CNPJS DE INTERESSE COM A BASE DE DADOS DO IBAMA 
+
+dados <- "C:/Users/suapasta//seuarquivodeconsulta.csv"
+
+dados$Coluna_C <- NA
+comuns <- intersect(dados$doc_interesse, dados$doc_ibama)
+dados$Coluna_C[seq_along(comuns)] <- comuns
+
+dados
